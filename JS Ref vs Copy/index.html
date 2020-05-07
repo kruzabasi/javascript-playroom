@@ -1,0 +1,70 @@
+< !DOCTYPE html >
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JS Reference VS Copy</title>
+  </head>
+  <body>
+    <script>
+      // start with strings, numbers and booleans
+      let age = 100;
+      let age2 = age;
+      console.log(age, age2);
+      age = 200;
+      console.log(age, age2);
+
+      let name = "john";
+      let namex = name;
+      console.log(name, namex);
+      name = "johnattan";
+      console.log(name, namex);
+      // Let's say we have an array
+      const players = ["Wes", "Sarah", "Ryan", "Poppy"];
+
+      // and we want to make a copy of it.
+      const team = players;
+
+      // You might think we can just do something like this:
+      team[5] = "lux";
+
+      // however what happens when we update that array?
+
+      // now here is the problem!
+
+      // oh no - we have edited the original array too!
+
+      // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+      // So, how do we fix this? We take a copy instead!
+      const teamx = players.slice();
+
+      // one way
+      const zteam = Array.from(teamx);
+
+      // or create a new array and concat the old one in
+      const team2 = [].concat(players);
+      // or use the new ES6 Spread
+      const xteam = [...players];
+
+      // now when we update it, the original one isn't changed
+
+      // The same thing goes for objects, let's say we have a person object
+
+      // with Objects
+      const person = {
+        name: "Nnah Ukponoabasi",
+        age: 98
+      };
+
+      // and think we make a copy:
+      const newbie = person; //wrong copy but cool reference
+
+      // how do we take a copy instead?
+      Object.assign({}, person, { age: 24 });
+      // We will hopefully soon see the object ...spread
+
+      // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+      // also you could check and use JSON.parse(JSON.stringify(newbie))
+    </script>
+  </body>
+</html>
